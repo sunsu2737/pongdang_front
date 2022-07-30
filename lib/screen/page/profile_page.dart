@@ -85,15 +85,27 @@ class Profile extends StatelessWidget {
           SizedBox(
             height: 50,
           ),
-          SizedBox(
-              height: 200,
-              child: CarouselSlider(
-                
-                options: CarouselOptions(
-                  
-                    enableInfiniteScroll: false, viewportFraction: 0.7),
-                items: sliderController.images
-              )),
+          Expanded(
+              child: GridView.count(
+                  padding: const EdgeInsets.all(10),
+                  mainAxisSpacing: 3,
+                  crossAxisSpacing: 3,
+                  crossAxisCount: 3,
+                  children: sliderController.images
+                      .map(
+                        (e) => GestureDetector(
+                          child: Image.network(
+                            e,
+                            fit: BoxFit.fitHeight,
+                          ),
+                          onTap: () {
+                            Get.dialog(Dialog(
+                              child: Image.network(e),
+                            ));
+                          },
+                        ),
+                      )
+                      .toList()))
         ],
       ),
     );

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -19,7 +19,7 @@ class ProfileSetting extends StatelessWidget {
         centerTitle: true,
         backgroundColor: controller.main_color,
       ),
-      body: Container(child: Text("프로필 편집"),),
+      body:  Text("프로필 편집"),
     );
   }
 }
