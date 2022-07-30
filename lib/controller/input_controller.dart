@@ -7,28 +7,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../data/API/user_model.dart';
 
-
 class LoginInputController extends GetxController {
-
   String email = '';
   String password = '';
   late UserMom userMom;
 
-
   trySubmit(StreamController streamController) async {
-            
-
     Get.focusScope!.unfocus();
 
-
-    streamController.add("lodding");
+    streamController.add("loading");
 
     userMom = UserMom(email: email, password: password);
     int status = await loginPost(userMom);
     streamController.add(status.toString());
+    print(status.toString());
 
-      // User those values to send our auth request ...
-    
+    // User those values to send our auth request ...
   }
 }
 
@@ -69,7 +63,7 @@ class SignupInputController extends GetxController {
     Get.focusScope!.unfocus();
 
     if (isValid) {
-      streamController.add("lodding");
+      streamController.add("loading");
       userMom = UserMom(email: email, nickname: nickname, password: password);
       int status = await signupPost(userMom);
 
@@ -78,5 +72,3 @@ class SignupInputController extends GetxController {
     }
   }
 }
-
-

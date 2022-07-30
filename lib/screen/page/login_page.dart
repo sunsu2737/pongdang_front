@@ -15,16 +15,19 @@ class Login extends StatelessWidget {
       StreamBuilder(
           stream: streamController.stream,
           builder: (context, snapshot) {
-            if (snapshot.data == "lodding") {
+            if (snapshot.data == "400") {
               return AlertDialog(
-                content: Row(
-                  children: [
-                    CircularProgressIndicator(),
-                    Container(
-                        margin: EdgeInsets.only(left: 7), child: Text("로그인 중")),
-                  ],
-                ),
+                content: const Text('이메일과 비밀번호를 확인해주세요.'),
+                actions: [
+                  TextButton(
+                    child: const Text("확인"),
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
+                ],
               );
+              
             } else if (snapshot.data == "200") {
               return AlertDialog(
                 content: const Text('로그인 되었습니다.'),
@@ -37,16 +40,13 @@ class Login extends StatelessWidget {
               );
             } else {
               return AlertDialog(
-                content: const Text('이메일과 비밀번호를 확인해주세요.'),
-                actions: [
-                  TextButton(
-                    child: const Text("확인"),
-                    onPressed: () {
-                      streamController.add('lodding');
-                      Get.back();
-                    },
-                  ),
-                ],
+                content: Row(
+                  children: [
+                    CircularProgressIndicator(),
+                    Container(
+                        margin: EdgeInsets.only(left: 7), child: Text("로그인 중")),
+                  ],
+                ),
               );
             }
           }),
@@ -106,7 +106,6 @@ class Login extends StatelessWidget {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          streamController.add("lodding");
                           inputController.trySubmit(streamController);
                           openDialog(streamController);
                         },
