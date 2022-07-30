@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "335887474654",
+    "project_id": "emojumo-4cfa1",
+    "storage_bucket": "emojumo-4cfa1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335887474654:android:acd12577d9c711f274874f",
+        "android_client_info": {
+          "package_name": "com.example.emojumo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "335887474654-1nsv3dnai3t40f4tglgg77ua21j8gael.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUiqC6gZwKbv6wV0zHuV2XOKBmODiGqFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "335887474654-1nsv3dnai3t40f4tglgg77ua21j8gael.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
