@@ -1,21 +1,32 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
-import 'package:emojumo/controller/slider_controller.dart';
+import 'dart:io';
+
+import 'package:emojumo/controller/image_controller.dart';
+import 'package:emojumo/controller/user_controller.dart';
+import 'package:emojumo/data/API/api_resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../controller/navigationbar_controller.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
   @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  @override
   Widget build(BuildContext context) {
     final controller = Get.put(LandingPageController());
-    final sliderController = Get.put(SliderController());
+    final gridController = Get.put(GridController());
+    final userMomController = Get.arguments;
 
     return Scaffold(
       appBar: AppBar(
@@ -35,10 +46,22 @@ class Profile extends StatelessWidget {
                   height: 220,
                   child: Padding(
                       padding: const EdgeInsets.all(30.0),
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage(
-                            bundle: null, 'assets/default_profile.png'),
-                        radius: 120,
+                      child: GestureDetector(
+                        onTap: () async {
+                          var picker = ImagePicker();
+                          XFile? f = await picker.pickImage(
+                              source: ImageSource.gallery);
+                          File image = File(f!.path);
+                          // Get.dialog(AlertDialog(
+                          //   content: Image.network(),
+                          // ));
+                        },
+                        child:CircleAvatar(
+                radius: 30.0,
+                backgroundImage:
+                    NetworkImage('http://$ip_adress/images/${userMomController.userMom.image}/'),
+                backgroundColor: Colors.transparent,
+              ) 
                       )),
                 ),
               ),
@@ -91,7 +114,7 @@ class Profile extends StatelessWidget {
                   mainAxisSpacing: 3,
                   crossAxisSpacing: 3,
                   crossAxisCount: 3,
-                  children: sliderController.images
+                  children: gridController.images
                       .map(
                         (e) => GestureDetector(
                           child: Image.network(
@@ -99,6 +122,9 @@ class Profile extends StatelessWidget {
                             fit: BoxFit.fitHeight,
                           ),
                           onTap: () {
+                            setState(() {
+                              
+                            });
                             Get.dialog(Dialog(
                               child: Image.network(e),
                             ));

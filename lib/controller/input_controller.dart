@@ -20,7 +20,6 @@ class LoginInputController extends GetxController {
     userMom = UserMom(email: email, password: password);
     int status = await loginPost(userMom);
     streamController.add(status.toString());
-    print(status.toString());
 
     // User those values to send our auth request ...
   }

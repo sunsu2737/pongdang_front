@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:emojumo/controller/input_controller.dart';
+import 'package:emojumo/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,14 +28,39 @@ class Login extends StatelessWidget {
                   ),
                 ],
               );
-              
+            } else if (snapshot.data == "500") {
+              return AlertDialog(
+                content: const Text('이메일과 비밀번호를 확인해주세요.'),
+                actions: [
+                  TextButton(
+                    child: const Text("확인"),
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
+                ],
+              );
             } else if (snapshot.data == "200") {
               return AlertDialog(
                 content: const Text('로그인 되었습니다.'),
                 actions: [
                   TextButton(
                     child: const Text("확인"),
-                    onPressed: () => Get.offAllNamed('/'),
+                    onPressed: () async {
+                      final userMomController = Get.put(UserMomController());
+                      await userMomController.getUserMom();
+                      Get.offAllNamed('/', arguments: userMomController);
+                    },
+                  ),
+                ],
+              );
+            } else if (snapshot.data == "401") {
+              return AlertDialog(
+                content: const Text('이메일이 전송되었습니다. 링크를 클릭해 인증해주세요.'),
+                actions: [
+                  TextButton(
+                    child: const Text("확인"),
+                    onPressed: () => Get.back(),
                   ),
                 ],
               );
@@ -57,6 +83,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(LandingPageController());
     final inputController = Get.put(LoginInputController());
+
     StreamController<String> streamController =
         StreamController<String>.broadcast();
     return Scaffold(

@@ -14,7 +14,7 @@ class Signup extends StatelessWidget {
     if (status == 200) {
       Get.dialog(
         AlertDialog(
-          content: const Text('회원가입 완료!'),
+          content: const Text('회원가입 완료!\n입력하신 이메일로 인증 메일을 전송했습니다. 링크를 클릭해 인증해 주세요.'),
           actions: [
             TextButton(
               child: const Text("확인"),

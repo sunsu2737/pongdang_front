@@ -13,10 +13,22 @@ Future<int> signupPost(UserMom userMom) async {
 }
 
 Future<int> loginPost(UserMom userMom) async {
-  var url = Uri.parse('http://$ip_adress/rest-auth/login/');
+  var url = Uri.parse('http://$ip_adress/user/login/');
 
   http.Response response = await http.post(url, body: userMom.toJson());
-  token = jsonDecode(response.body)['key'];
-
+  if (response.statusCode == 200) {
+    token = jsonDecode(response.body)['token'];
+  }
   return response.statusCode;
+}
+
+Future<UserMom> getProfile() async {
+  var url = Uri.parse('http://$ip_adress/user/profile/');
+  UserMom profile = UserMom();
+  http.Response response = await http.post(url, body: {"token": token});
+  if (response.statusCode == 200) {
+    profile = UserMom.fromJson(jsonDecode(response.body));
+  }
+
+  return profile;
 }

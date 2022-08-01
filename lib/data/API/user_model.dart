@@ -3,36 +3,35 @@
 class UserMom {
   late String? name = '';
   late String? nickname = '';
-  late String? id = '';
   late String? password = '';
   late String? email = '';
   late String? region = '';
   late String? birth = '';
+  late String? image = '';
 
   UserMom(
       {this.name = '',
       this.email,
-      this.id = '',
       this.password = '',
       this.region = '',
       this.birth = '',
-      this.nickname=''});
+      this.nickname = '',
+      this.image = ''});
 
   UserMom.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     nickname = json['nickname'];
-    id = json['id'];
-    password = json['password'];
     email = json['email'];
     region = json['region'];
     birth = json['birth'];
+    image = json['profile_image'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, String>();
     data['name'] = name;
     data['nickname'] = nickname;
-    data['id'] = id;
+
     data['password'] = password;
     data['email'] = email;
     data['region'] = region;
