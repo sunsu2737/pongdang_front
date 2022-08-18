@@ -27,6 +27,7 @@ class _ProfileState extends State<Profile> {
     final controller = Get.put(LandingPageController());
     final gridController = Get.put(GridController());
     final userMomController = Get.arguments;
+    final profileImageController = Get.put(ProfileImageController());
 
     return Scaffold(
       appBar: AppBar(
@@ -47,22 +48,22 @@ class _ProfileState extends State<Profile> {
                   child: Padding(
                       padding: const EdgeInsets.all(30.0),
                       child: GestureDetector(
-                        onTap: () async {
-                          var picker = ImagePicker();
-                          XFile? f = await picker.pickImage(
-                              source: ImageSource.gallery);
-                          File image = File(f!.path);
-                          // Get.dialog(AlertDialog(
-                          //   content: Image.network(),
-                          // ));
-                        },
-                        child:CircleAvatar(
-                radius: 30.0,
-                backgroundImage:
-                    NetworkImage('http://$ip_adress/images/${userMomController.userMom.image}/'),
-                backgroundColor: Colors.transparent,
-              ) 
-                      )),
+                          onTap: () async {
+                            var picker = ImagePicker();
+                            XFile? f = await picker.pickImage(
+                                source: ImageSource.gallery);
+                            File image = File(f!.path);
+                            await profileImageController.upload(image);
+                            await userMomController.getUserMom();
+                            setState(() {
+                            });
+                          },
+                          child: CircleAvatar(
+                            radius: 30.0,
+                            backgroundImage: NetworkImage(
+                                'http://$ip_adress/images/${userMomController.userMom.image}/'),
+                            backgroundColor: Colors.transparent,
+                          ))),
                 ),
               ),
               Flexible(
@@ -122,9 +123,6 @@ class _ProfileState extends State<Profile> {
                             fit: BoxFit.fitHeight,
                           ),
                           onTap: () {
-                            setState(() {
-                              
-                            });
                             Get.dialog(Dialog(
                               child: Image.network(e),
                             ));

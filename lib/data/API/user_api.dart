@@ -22,6 +22,24 @@ Future<int> loginPost(UserMom userMom) async {
   return response.statusCode;
 }
 
+Future<int> profileImagePost(String base64Image) async {
+  var url = Uri.parse('http://$ip_adress/user/profileImage/');
+  http.Response response = await http.post(
+    url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    }, // this header is essential to send json data
+    body: jsonEncode([
+      {
+        'image': '$base64Image',
+        'token': token
+      }
+    ]),
+  );
+
+  return response.statusCode;
+}
+
 Future<UserMom> getProfile() async {
   var url = Uri.parse('http://$ip_adress/user/profile/');
   UserMom profile = UserMom();
