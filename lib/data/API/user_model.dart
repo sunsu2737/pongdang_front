@@ -41,6 +41,15 @@ class UserMom {
   }
 }
 
+class Feed {
+  List<String>? images = [];
+
+  Feed({this.images = const []});
+  Feed.fromJson(Map<String, dynamic> json) {
+    images = json['images'].cast<String>();
+  }
+}
+
 class UserKid {
   late String email;
   late String? birth;

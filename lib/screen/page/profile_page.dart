@@ -28,7 +28,8 @@ class _ProfileState extends State<Profile> {
     final gridController = Get.put(GridController());
     final userMomController = Get.arguments;
     final profileImageController = Get.put(ProfileImageController());
-
+    final feedImageController = Get.put(FeedImageController());
+    gridController.getImages();
     return Scaffold(
       appBar: AppBar(
         title: const Text("마이 페이지"),
@@ -55,8 +56,7 @@ class _ProfileState extends State<Profile> {
                             File image = File(f!.path);
                             await profileImageController.upload(image);
                             await userMomController.getUserMom();
-                            setState(() {
-                            });
+                            setState(() {});
                           },
                           child: CircleAvatar(
                             radius: 30.0,
@@ -107,7 +107,28 @@ class _ProfileState extends State<Profile> {
             ],
           ),
           SizedBox(
-            height: 50,
+            height: 20,
+          ),
+          FractionallySizedBox(
+            widthFactor: 0.9,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    var picker = ImagePicker();
+                    XFile? f =
+                        await picker.pickImage(source: ImageSource.gallery);
+                    File image = File(f!.path);
+                    await feedImageController.upload(image);
+                    await gridController.getImages();
+                    setState(() {});
+                  },
+                  icon: Icon(Icons.add_box_outlined),
+                  iconSize: 40,
+                ),
+              ],
+            ),
           ),
           Expanded(
               child: GridView.count(
@@ -119,12 +140,13 @@ class _ProfileState extends State<Profile> {
                       .map(
                         (e) => GestureDetector(
                           child: Image.network(
-                            e,
+                            'http://$ip_adress/images/$e/',
                             fit: BoxFit.fitHeight,
                           ),
                           onTap: () {
                             Get.dialog(Dialog(
-                              child: Image.network(e),
+                              child:
+                                  Image.network('http://$ip_adress/images/$e/'),
                             ));
                           },
                         ),
